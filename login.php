@@ -10,7 +10,7 @@
 </head>
 <body>
     <div class="container">
-        <?php
+        <?php 
          if (isset($_POST["login"])){
             $email = $_POST["email"];
             $password = $_POST["password"]; 

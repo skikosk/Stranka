@@ -1,3 +1,7 @@
+<?php
+include  'database.php'; ?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -15,11 +19,11 @@
     -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600">
     <!-- https://fonts.google.com/specimen/Open+Sans -->
-    <link rel="stylesheet" href="css/fontawesome.min.css">
+    <link rel="stylesheet" href="dashboard/css/fontawesome.min.css">
     <!-- https://fontawesome.com/ -->
-    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="dashboard/css/bootstrap.min.css">
     <!-- https://getbootstrap.com/ -->
-    <link rel="stylesheet" href="css/tooplate.css">
+    <link rel="stylesheet" href="dashboard/css/tooplate.css">
 </head>
 
 <body class="bg03">
@@ -41,6 +45,9 @@
                             <li class="nav-item active">
                                 <a class="nav-link" href="#">Dashboard</a>
                             </li>
+                            <li class="nav-item active">
+                                <a class="nav-link" href="registration.php">Pridať pouzivatela</a>
+                            </li>
                         </ul>
                         <ul class="navbar-nav">
                             <li class="nav-item">
@@ -55,89 +62,39 @@
             </div>
         </div>
         <!-- row -->
-        <div class="row tm-content-row tm-mt-big">
-            <div class="tm-col tm-col-big">
-                <div class="bg-white tm-block">
-                    <div class="row">
-                        <div class="col-12">
-                            <h2 class="tm-block-title d-inline-block">Accounts</h2>
-                        </div>
-                    </div>
-                    <ol class="tm-list-group tm-list-group-alternate-color tm-list-group-pad-big">
-                        <li class="tm-list-group-item">
-                            Donec eget libero
-                        </li>
-                        <li class="tm-list-group-item">
-                            Nunc luctus suscipit elementum
-                        </li>
-                        <li class="tm-list-group-item">
-                            Maecenas eu justo maximus
-                        </li>
-                        <li class="tm-list-group-item">
-                            Pellentesque auctor urna nunc
-                        </li>
-                        <li class="tm-list-group-item">
-                            Sit amet aliquam lorem efficitur
-                        </li>
-                        <li class="tm-list-group-item">
-                            Pellentesque auctor urna nunc
-                        </li>
-                        <li class="tm-list-group-item">
-                            Sit amet aliquam lorem efficitur
-                        </li>
-                    </ol>
-                </div>
-            </div>
-            <div class="tm-col tm-col-big">
-                <div class="bg-white tm-block">
-                    <div class="row">
-                        <div class="col-12">
-                            <h2 class="tm-block-title">Edit Account</h2>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-12">
-                            <form action="" class="tm-signup-form">
-                                <div class="form-group">
-                                    <label for="name">Account Name</label>
-                                    <input placeholder="Vulputate Eleifend Nulla" id="name" name="name" type="text" class="form-control validate">
-                                </div>
-                                <div class="form-group">
-                                    <label for="password">Password</label>
-                                    <input placeholder="******" id="password" name="password" type="password" class="form-control validate">
-                                </div>
-                                <div class="form-group">
-                                    <label for="password2">Re-enter Password</label>
-                                    <input placeholder="******" id="password2" name="password2" type="password" class="form-control validate">
-                                </div>
-                                <div class="row">
-                                    <div class="col-12 col-sm-4">
-                                        <button type="submit" class="btn btn-primary">Update
-                                        </button>
-                                    </div>
-                                    <div class="col-12 col-sm-8 tm-btn-right">
-                                        <button type="submit" class="btn btn-danger">Delete Account
-                                        </button>
-                                    </div>
-                                </div>
 
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="tm-col tm-col-small">
-                <div class="bg-white tm-block">
-                    <h2 class="tm-block-title">Profile Image</h2>
-                    <img src="img/profile-image.png" alt="Profile Image" class="img-fluid">
-                    <div class="custom-file mt-3 mb-3">
-                        <input id="fileInput" type="file" style="display:none;" />
-                        <input type="button" class="btn btn-primary d-block mx-xl-auto" value="Upload New..." onclick="document.getElementById('fileInput').click();"
-                        />
-                    </div>
-                </div>
-            </div>
-        </div>
+       <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Username</th>
+      <th scope="col">Email</th>
+      <th scope="col">Operacie</th>
+    </tr>
+  </thead>
+
+  <?php
+        $sql = "Select * from `users`";
+        $result = mysqli_query($conn, $sql);
+        if ($result){
+            while($row = mysqli_fetch_assoc($result)){
+                $id = $row['id'];
+                $username = $row['username']; 
+                $email = $row['email'];
+                echo'<tr>
+                <th scope="row">'.$id.'</th>
+                <td>'.$username.'</td>
+                <td>'.$email.'</td>
+                <td>
+                    <button class="btn btn-primary"><a href="update.php? updateid='.$id.'">Update</a></button>
+                    <button class="btn btn-danger"><a href="delete.php? deleteid='.$id.'" class = "text-light">Delete</a></button>
+                </td>
+              </tr>';
+            }
+        }
+        ?>
+</tbody>
+</table>
         <footer class="row tm-mt-small">
             <div class="col-12 font-weight-light">
                 <p class="d-inline-block tm-bg-black text-white py-2 px-4">

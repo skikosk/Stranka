@@ -17,8 +17,8 @@
  <?php
                         if (isset($_POST["submit"])){
                             $username = $_POST['username'];
-                            $password = $_POST['password'];
                             $email = $_POST['email'];
+                            $password = $_POST['password'];
                             $passwordRepeat = $_POST['repeat_password'];
                             
                             $passwordHash = password_hash($password, PASSWORD_DEFAULT);
@@ -31,8 +31,8 @@
                         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
                                 array_push($errors, "Email is not valid");
                             }
-                        if (strlen($password)<8) {
-                            array_push($errors, "Heslo musi mat aspon 8 znakov");
+                        if (strlen($password)<5) {
+                            array_push($errors, "Heslo musi mat aspon 5 znakov");
                         }
                         if ($password!==$passwordRepeat) {
                             array_push($errors, "Heslá sa nezhodujú");
@@ -71,10 +71,10 @@
             <input name="username" type="text" class="form-control" placeholder="Meno">
         </div>
         <div class="form-group">
-            <input name="password" type="password" class="form-control" placeholder="Heslo">
+            <input name="email" type="email" class="form-control" placeholder="Email">
         </div>
         <div class="form-group">
-            <input name="email" type="email" class="form-control" placeholder="Email">
+            <input name="password" type="password" class="form-control" placeholder="Heslo">
         </div>
         <div class="form-group">
             <input name="repeat_password" type="password" class="form-control" placeholder="Opakovať heslo">
